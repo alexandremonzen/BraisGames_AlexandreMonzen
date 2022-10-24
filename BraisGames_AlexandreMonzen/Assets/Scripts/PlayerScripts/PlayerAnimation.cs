@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+///<summary>
+///Animates the player character based on his movement and other states
+///</summary>
+
 namespace PlayerCharacter
 {
     public sealed class PlayerAnimation : MonoBehaviour

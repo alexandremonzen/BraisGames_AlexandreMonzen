@@ -149,6 +149,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SwitchRotationType"",
+                    ""type"": ""Button"",
+                    ""id"": ""2963990b-3fcc-4407-b795-70502e0a0098"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LookRotation"",
                     ""type"": ""PassThrough"",
                     ""id"": ""e09c9ce8-d072-4d16-83d5-b41d3b9a2cc0"",
@@ -165,6 +174,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LookAtMousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""ddc60c4c-0c37-4618-83a4-3558f52788e2"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -255,6 +273,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""LookZoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e16405e-d255-4356-89e5-86b09d91ae99"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LookAtMousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59e6b90e-e0c8-4ada-a275-dbe93270c0d3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchRotationType"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,8 +309,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // PlayerGeneralActionMap
         m_PlayerGeneralActionMap = asset.FindActionMap("PlayerGeneralActionMap", throwIfNotFound: true);
         m_PlayerGeneralActionMap_Interact = m_PlayerGeneralActionMap.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerGeneralActionMap_SwitchRotationType = m_PlayerGeneralActionMap.FindAction("SwitchRotationType", throwIfNotFound: true);
         m_PlayerGeneralActionMap_LookRotation = m_PlayerGeneralActionMap.FindAction("LookRotation", throwIfNotFound: true);
         m_PlayerGeneralActionMap_LookZoom = m_PlayerGeneralActionMap.FindAction("LookZoom", throwIfNotFound: true);
+        m_PlayerGeneralActionMap_LookAtMousePosition = m_PlayerGeneralActionMap.FindAction("LookAtMousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -380,15 +422,19 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerGeneralActionMap;
     private IPlayerGeneralActionMapActions m_PlayerGeneralActionMapActionsCallbackInterface;
     private readonly InputAction m_PlayerGeneralActionMap_Interact;
+    private readonly InputAction m_PlayerGeneralActionMap_SwitchRotationType;
     private readonly InputAction m_PlayerGeneralActionMap_LookRotation;
     private readonly InputAction m_PlayerGeneralActionMap_LookZoom;
+    private readonly InputAction m_PlayerGeneralActionMap_LookAtMousePosition;
     public struct PlayerGeneralActionMapActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerGeneralActionMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Interact => m_Wrapper.m_PlayerGeneralActionMap_Interact;
+        public InputAction @SwitchRotationType => m_Wrapper.m_PlayerGeneralActionMap_SwitchRotationType;
         public InputAction @LookRotation => m_Wrapper.m_PlayerGeneralActionMap_LookRotation;
         public InputAction @LookZoom => m_Wrapper.m_PlayerGeneralActionMap_LookZoom;
+        public InputAction @LookAtMousePosition => m_Wrapper.m_PlayerGeneralActionMap_LookAtMousePosition;
         public InputActionMap Get() { return m_Wrapper.m_PlayerGeneralActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -401,12 +447,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnInteract;
+                @SwitchRotationType.started -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnSwitchRotationType;
+                @SwitchRotationType.performed -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnSwitchRotationType;
+                @SwitchRotationType.canceled -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnSwitchRotationType;
                 @LookRotation.started -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookRotation;
                 @LookRotation.performed -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookRotation;
                 @LookRotation.canceled -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookRotation;
                 @LookZoom.started -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookZoom;
                 @LookZoom.performed -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookZoom;
                 @LookZoom.canceled -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookZoom;
+                @LookAtMousePosition.started -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookAtMousePosition;
+                @LookAtMousePosition.performed -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookAtMousePosition;
+                @LookAtMousePosition.canceled -= m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface.OnLookAtMousePosition;
             }
             m_Wrapper.m_PlayerGeneralActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -414,12 +466,18 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @SwitchRotationType.started += instance.OnSwitchRotationType;
+                @SwitchRotationType.performed += instance.OnSwitchRotationType;
+                @SwitchRotationType.canceled += instance.OnSwitchRotationType;
                 @LookRotation.started += instance.OnLookRotation;
                 @LookRotation.performed += instance.OnLookRotation;
                 @LookRotation.canceled += instance.OnLookRotation;
                 @LookZoom.started += instance.OnLookZoom;
                 @LookZoom.performed += instance.OnLookZoom;
                 @LookZoom.canceled += instance.OnLookZoom;
+                @LookAtMousePosition.started += instance.OnLookAtMousePosition;
+                @LookAtMousePosition.performed += instance.OnLookAtMousePosition;
+                @LookAtMousePosition.canceled += instance.OnLookAtMousePosition;
             }
         }
     }
@@ -433,7 +491,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IPlayerGeneralActionMapActions
     {
         void OnInteract(InputAction.CallbackContext context);
+        void OnSwitchRotationType(InputAction.CallbackContext context);
         void OnLookRotation(InputAction.CallbackContext context);
         void OnLookZoom(InputAction.CallbackContext context);
+        void OnLookAtMousePosition(InputAction.CallbackContext context);
     }
 }
