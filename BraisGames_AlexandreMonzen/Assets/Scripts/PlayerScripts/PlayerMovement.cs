@@ -12,33 +12,17 @@ namespace PlayerCharacter
     [RequireComponent(typeof(CharacterController))]
     public sealed class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private GameObject _camera;
-        private CharacterController _characterController;
-        private PlayerInputActions _playerInputActions;
-        private InputAction _movementInputAction;
-
-        #region Vectors
-        private Vector2 _movementVector;
-        private Vector3 _currentMovementVector;
-        private Vector3 _smoothedMovementVector;
-        private Vector3 _finalMovementVector;
-        private Vector3 _refVelocityVector;
-        private Vector3 _lookRotationVector;
-        private Vector3 _gravityVector;
-        #endregion
-
         [Header("Movement")]
         [SerializeField] private float _normalMoveSpeed = 3;
         [SerializeField][Range(1.5f, 3f)] private float _multiplierRunMoveSpeed = 2;
         [SerializeField][Range(0, 1)] private float _moveSmoothValue = 0.1f;
-        [SerializeField][Range(0, 1)] private float _smoothRotationValue = 0.1f;
         private float _actualMoveSpeed;
         private float _runMoveSpeed;
 
         [Header("MoveSpeed Lerp Transitions")]
         [SerializeField] private float _timeNormalLerp;
         [SerializeField] private float _timeRunLerp;
-        private bool _isWalking;
+
         private bool _isWalkingFast;
         private bool _isWalkingSlow;
 
@@ -54,18 +38,24 @@ namespace PlayerCharacter
         private bool _isOnAir;
         private bool _isFallingOnly;
         private bool _canWalk;
-        private bool _canRotate;
 
-        #region Camera Direction Vectors
-        private Vector3 _camForward;
-        private Vector3 _camRigth;
+        #region Vectors
+        private Vector2 _movementVector;
+        private Vector3 _currentMovementVector;
+        private Vector3 _smoothedMovementVector;
+        private Vector3 _finalMovementVector;
+        private Vector3 _refVelocityVector;
+        private Vector3 _gravityVector;
         #endregion
+
+        private CharacterController _characterController;
+        private PlayerInputActions _playerInputActions;
+        private InputAction _movementInputAction;
+        private CameraRelativeVectors _cameraRelativeVectors;
 
         #region Getters & Setters
         public CharacterController characterController { get => _characterController; set => _characterController = value; }
         public Vector3 FinalMovementVector { get => _finalMovementVector; }
-        public float DefaultGravity { get => _defaultGravity; }
-        public float ActualGravity { get => _actualGravity; set => _actualGravity = value; }
         public float VelocityY { get => _velocityY; }
         public bool IsOnAir { get => _isOnAir; }
         public bool IsFallingOnly { get => _isFallingOnly; set => _isFallingOnly = value; }
@@ -75,16 +65,11 @@ namespace PlayerCharacter
         {
             _characterController = GetComponent<CharacterController>();
             _playerInputActions = new PlayerInputActions();
-
-            if (!_camera)
-            {
-                _camera = Camera.main.gameObject;
-            }
+            _cameraRelativeVectors = GetComponent<CameraRelativeVectors>();
 
             _actualMoveSpeed = _normalMoveSpeed;
             _runMoveSpeed = _normalMoveSpeed * _multiplierRunMoveSpeed;
 
-            _isWalking = false;
             _isWalkingFast = false;
             _isWalkingSlow = false;
 
@@ -92,7 +77,6 @@ namespace PlayerCharacter
             _velocityY = 0;
             _actualGravity = _defaultGravity;
 
-            _canRotate = true;
             _canWalk = true;
         }
 
@@ -133,23 +117,9 @@ namespace PlayerCharacter
 
         private void Update()
         {
-            UpdateRelativeCameraVectors();
-
             HandleGravityJump();
             HandleMovement();
-            HandleRotation();
             HandleCharacterController();
-        }
-
-        private void UpdateRelativeCameraVectors()
-        {
-            _camForward = _camera.transform.forward;
-            _camForward.y = 0;
-            _camForward = _camForward.normalized;
-
-            _camRigth = _camera.transform.right;
-            _camRigth.y = 0;
-            _camRigth = _camRigth.normalized;
         }
 
         private void HandleGravityJump()
@@ -186,26 +156,13 @@ namespace PlayerCharacter
             _currentMovementVector = Vector3.SmoothDamp(_currentMovementVector, _movementVector, ref _refVelocityVector, _moveSmoothValue);
             _smoothedMovementVector = new Vector3(_currentMovementVector.x * _actualMoveSpeed, _velocityY, _currentMovementVector.y * _actualMoveSpeed);
 
-            _finalMovementVector = (_camRigth * _smoothedMovementVector.x) + _gravityVector + (_camForward * _smoothedMovementVector.z);
-            _isWalking = (Mathf.Abs(_movementVector.x) > 0 || Mathf.Abs(_movementVector.y) > 0) ? true : false;
-        }
-
-        private void HandleRotation()
-        {
-            if (_canRotate)
-            {
-                _lookRotationVector = (_camRigth * _smoothedMovementVector.x) + (_camera.transform.up * 0) + (_camForward * _smoothedMovementVector.z);
-                if (_lookRotationVector != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_lookRotationVector), _smoothRotationValue);
-                }
-            }
+            _finalMovementVector = (_cameraRelativeVectors.CamRigth * _smoothedMovementVector.x) + _gravityVector + 
+                                   (_cameraRelativeVectors.CamForward * _smoothedMovementVector.z);
         }
 
         private void HandleCharacterController()
         {
             _characterController.Move(_finalMovementVector * Time.deltaTime);
-
         }
 
         public void FaceCharacterToObject(Transform target)
@@ -232,12 +189,10 @@ namespace PlayerCharacter
             if (on)
             {
                 _playerInputActions.PlayerMovementActionMap.Enable();
-                _canRotate = true;
             }
             else
             {
                 _playerInputActions.PlayerMovementActionMap.Disable();
-                _canRotate = false;
             }
         }
 
