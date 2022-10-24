@@ -127,6 +127,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SwitchRotationType",
+                    "type": "Button",
+                    "id": "2963990b-3fcc-4407-b795-70502e0a0098",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LookRotation",
                     "type": "PassThrough",
                     "id": "e09c9ce8-d072-4d16-83d5-b41d3b9a2cc0",
@@ -143,6 +152,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "LookAtMousePosition",
+                    "type": "Value",
+                    "id": "ddc60c4c-0c37-4618-83a4-3558f52788e2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -231,6 +249,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "LookZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e16405e-d255-4356-89e5-86b09d91ae99",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAtMousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59e6b90e-e0c8-4ada-a275-dbe93270c0d3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchRotationType",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
