@@ -136,6 +136,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""PlayerAttackActionMap"",
+            ""id"": ""35903cdc-10d4-4bda-af8d-b450ac6654c7"",
+            ""actions"": [
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""b100bd84-072e-4204-884b-f280384a1fb4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1cf6c726-2f2d-4ba7-afde-258bbbffbabc"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""PlayerGeneralActionMap"",
             ""id"": ""be9263c4-aa0f-4383-a546-fbb05dd0735f"",
             ""actions"": [
@@ -306,6 +334,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerMovementActionMap_Movement = m_PlayerMovementActionMap.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovementActionMap_Jump = m_PlayerMovementActionMap.FindAction("Jump", throwIfNotFound: true);
         m_PlayerMovementActionMap_FastMovement = m_PlayerMovementActionMap.FindAction("FastMovement", throwIfNotFound: true);
+        // PlayerAttackActionMap
+        m_PlayerAttackActionMap = asset.FindActionMap("PlayerAttackActionMap", throwIfNotFound: true);
+        m_PlayerAttackActionMap_Attack = m_PlayerAttackActionMap.FindAction("Attack", throwIfNotFound: true);
         // PlayerGeneralActionMap
         m_PlayerGeneralActionMap = asset.FindActionMap("PlayerGeneralActionMap", throwIfNotFound: true);
         m_PlayerGeneralActionMap_Interact = m_PlayerGeneralActionMap.FindAction("Interact", throwIfNotFound: true);
@@ -418,6 +449,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     }
     public PlayerMovementActionMapActions @PlayerMovementActionMap => new PlayerMovementActionMapActions(this);
 
+    // PlayerAttackActionMap
+    private readonly InputActionMap m_PlayerAttackActionMap;
+    private IPlayerAttackActionMapActions m_PlayerAttackActionMapActionsCallbackInterface;
+    private readonly InputAction m_PlayerAttackActionMap_Attack;
+    public struct PlayerAttackActionMapActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerAttackActionMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Attack => m_Wrapper.m_PlayerAttackActionMap_Attack;
+        public InputActionMap Get() { return m_Wrapper.m_PlayerAttackActionMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerAttackActionMapActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerAttackActionMapActions instance)
+        {
+            if (m_Wrapper.m_PlayerAttackActionMapActionsCallbackInterface != null)
+            {
+                @Attack.started -= m_Wrapper.m_PlayerAttackActionMapActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerAttackActionMapActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerAttackActionMapActionsCallbackInterface.OnAttack;
+            }
+            m_Wrapper.m_PlayerAttackActionMapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+            }
+        }
+    }
+    public PlayerAttackActionMapActions @PlayerAttackActionMap => new PlayerAttackActionMapActions(this);
+
     // PlayerGeneralActionMap
     private readonly InputActionMap m_PlayerGeneralActionMap;
     private IPlayerGeneralActionMapActions m_PlayerGeneralActionMapActionsCallbackInterface;
@@ -487,6 +551,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFastMovement(InputAction.CallbackContext context);
+    }
+    public interface IPlayerAttackActionMapActions
+    {
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface IPlayerGeneralActionMapActions
     {

@@ -114,6 +114,34 @@
             ]
         },
         {
+            "name": "PlayerAttackActionMap",
+            "id": "35903cdc-10d4-4bda-af8d-b450ac6654c7",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "b100bd84-072e-4204-884b-f280384a1fb4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1cf6c726-2f2d-4ba7-afde-258bbbffbabc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "PlayerGeneralActionMap",
             "id": "be9263c4-aa0f-4383-a546-fbb05dd0735f",
             "actions": [
