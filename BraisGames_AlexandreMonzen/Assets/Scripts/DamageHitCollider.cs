@@ -35,7 +35,6 @@ public class DamageHitCollider : MonoBehaviour
             {
                 healthLife.TakeDamage(_damageValue);
                 _hitCollider.enabled = false;
-                Debug.Log("Rodou aqui");
             }
         }
 
@@ -46,7 +45,6 @@ public class DamageHitCollider : MonoBehaviour
             {
                 healthStructure.TakeDamage(_damageValue);
                 _hitCollider.enabled = false;
-                Debug.Log("Rodou aqui");
             }
         }
 

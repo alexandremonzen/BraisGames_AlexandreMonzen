@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour, IDestructible
+public sealed class Tree : ResourceDesctructibleObject
 {
-    private HealthStructure _healthStructure;
-
-    private void Awake()
+    protected override void Awake()
     {
-        _healthStructure = GetComponent<HealthStructure>();
+        base.Awake();
+        
     }
 
-    private void Start()
+    protected override void Start()
     {
-        _healthStructure.OnDie += DestroyObject;
+        base.Start();
+        
     }
 
-    public void DestroyObject()
+    public override void DestroyObject()
     {
-        this.gameObject.SetActive(false);
+        base.DestroyObject();
     }
 }
