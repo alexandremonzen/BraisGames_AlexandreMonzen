@@ -22,28 +22,46 @@ namespace PlayerCharacter
             inventory.Add(ItemID.Leaf, 0);
         }
 
-        private void Update()
-        {
-
-            // ItemID key = ItemID.Stone;
-            // int value;
-            // inventory.TryGetValue(key, out value);
-            // if (value >= 3)
-            // {
-            //     inventory[key] = 0;
-            // }
-
-        }
-
         public void ChangeItemAmountOnInventory(ItemID key, int amount)
         {
             int value;
             if (inventory.TryGetValue(key, out value))
             {
                 inventory[key] = value + amount;
-                Debug.Log(inventory[key]);
+
+                if (value < 0)
+                {
+                    value = 0;
+                }
+
                 UpdateUI?.Invoke();
             }
+        }
+
+        public bool CompareAmountOnInventory(ItemID key, int amount)
+        {
+            int value;
+            if (inventory.TryGetValue(key, out value))
+            {
+                if (value >= amount)
+                {
+                    Debug.Log(value);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void InvokeUpdateUIAction()
+        {
+            UpdateUI?.Invoke();
         }
     }
 }

@@ -440,6 +440,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 5321143765321584933}
   _playerAnimation: {fileID: 5321143765321584939}
   _playerRotation: {fileID: 5362990261892445145}
+  _playerInventory: {fileID: 8852305956631415620}
 --- !u!136 &6134234431156198084
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -747,7 +748,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.1
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
