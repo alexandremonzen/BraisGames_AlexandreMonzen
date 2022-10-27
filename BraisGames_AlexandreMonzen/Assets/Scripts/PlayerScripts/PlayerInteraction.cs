@@ -16,12 +16,14 @@ namespace PlayerCharacter
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private PlayerAnimation _playerAnimation;
         [SerializeField] private PlayerRotation _playerRotation;
+        [SerializeField] private PlayerInventory _playerInventory;
 
         #region Getters & Setters
         public bool CanInteract { get => _canInteract; set => _canInteract = value; }
         public Transform CarryOffset { get => _carryOffset; }
         public PlayerAnimation PlayerAnimation { get => _playerAnimation; }
         public PlayerMovement PlayerMovement { get => _playerMovement; }
+        public PlayerInventory PlayerInventory { get => _playerInventory; }
         #endregion
 
         private void Awake()

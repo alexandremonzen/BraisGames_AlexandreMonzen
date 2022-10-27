@@ -154,7 +154,7 @@ namespace PlayerCharacter
         {
             _movementVector = _movementInputAction.ReadValue<Vector2>();
             _currentMovementVector = Vector3.SmoothDamp(_currentMovementVector, _movementVector, ref _refVelocityVector, _moveSmoothValue);
-            _smoothedMovementVector = new Vector3(_currentMovementVector.x * _actualMoveSpeed, _velocityY, _currentMovementVector.y * _actualMoveSpeed);
+            _smoothedMovementVector = new Vector3(_currentMovementVector.x * _actualMoveSpeed, 0, _currentMovementVector.y * _actualMoveSpeed);
 
             _finalMovementVector = (_cameraRelativeVectors.CamRigth * _smoothedMovementVector.x) + _gravityVector + 
                                    (_cameraRelativeVectors.CamForward * _smoothedMovementVector.z);

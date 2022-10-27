@@ -55,7 +55,7 @@ public class CarryObject : DynamicInteractiveObjectPlayer
     {
         RotateToNormalRotation();
         playerInteraction.CanInteract = false;
-        playerInteraction.PlayerAnimation.animator.SetLayerWeight(1, 1);
+        //playerInteraction.PlayerAnimation.animator.SetLayerWeight(1, 1);
 
         //used to drag the item in the update, fixed update and late update
         _actualPlayerInteraction = playerInteraction;
