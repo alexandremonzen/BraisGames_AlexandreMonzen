@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spriteSheetHouses_0
+      name: spriteSheetHouses_04
       rect:
         serializedVersion: 2
         x: 47
@@ -124,7 +124,7 @@ TextureImporter:
         width: 271
         height: 296
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -137,7 +137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteSheetHouses_1
+      name: spriteSheetHouses_02
       rect:
         serializedVersion: 2
         x: 377
@@ -145,7 +145,7 @@ TextureImporter:
         width: 304
         height: 249
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -158,7 +158,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteSheetHouses_2
+      name: spriteSheetHouses_03
       rect:
         serializedVersion: 2
         x: 744
@@ -166,7 +166,7 @@ TextureImporter:
         width: 226
         height: 296
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -179,36 +179,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteSheetHouses_3
+      name: spriteSheetHouses_01
       rect:
         serializedVersion: 2
-        x: 45
-        y: 306
-        width: 270
-        height: 295
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2408a1eb9df6abf4bbb420d375bbd30f
-      internalID: 285653947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spriteSheetHouses_4
-      rect:
-        serializedVersion: 2
-        x: 361
-        y: 288
+        x: 363
+        y: 284
         width: 289
         height: 278
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -221,7 +200,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spriteSheetHouses_5
+      name: spriteSheetHouses_05
       rect:
         serializedVersion: 2
         x: 694
@@ -229,7 +208,7 @@ TextureImporter:
         width: 294
         height: 241
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,12 +231,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spriteSheetHouses_3: 285653947
-      spriteSheetHouses_4: -1713589976
-      spriteSheetHouses_2: 1373192734
-      spriteSheetHouses_5: -1126589457
-      spriteSheetHouses_0: -238892420
-      spriteSheetHouses_1: -1031720612
+      spriteSheetHouses_02: -1031720612
+      spriteSheetHouses_03: 1373192734
+      spriteSheetHouses_04: -238892420
+      spriteSheetHouses_05: -1126589457
+      spriteSheetHouses_01: -1713589976
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
