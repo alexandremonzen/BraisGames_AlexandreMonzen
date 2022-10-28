@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: ../../../FMOD_BraisGames/BraisGames/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638025221243519138
+  lastModified: 638025248957819035
   FileSizes:
   - Name: Desktop
     Value: 1036
@@ -386,7 +386,7 @@ MonoBehaviour:
   - {fileID: -6063812674962757573}
   StringsBanks:
   - {fileID: 1265510137068262753}
-  cacheTime: 638025221245411965
+  cacheTime: 638025248966482328
   cacheVersion: 131593
 --- !u!114 &468437048048270596
 MonoBehaviour:
@@ -430,7 +430,7 @@ MonoBehaviour:
   Path: ../../../FMOD_BraisGames/BraisGames/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638025221243549083
+  lastModified: 638025248957859010
   FileSizes:
   - Name: Desktop
     Value: 1762
@@ -585,7 +585,7 @@ MonoBehaviour:
   Path: ../../../FMOD_BraisGames/BraisGames/Build/Desktop/Environment.bank
   Name: Environment
   StudioPath: bank:/Environment
-  lastModified: 638025221245411965
+  lastModified: 638025248957498803
   FileSizes:
   - Name: Desktop
     Value: 3291520
@@ -605,7 +605,7 @@ MonoBehaviour:
   Path: ../../../FMOD_BraisGames/BraisGames/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638025221244842375
+  lastModified: 638025248966482328
   FileSizes:
   - Name: Desktop
     Value: 398688
