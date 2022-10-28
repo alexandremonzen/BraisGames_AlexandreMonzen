@@ -6,11 +6,17 @@ public class MoveToTargetPoint : MonoBehaviour
 {
     [Header("General Setup")]
     [SerializeField] private bool _worldPosition;
-    [SerializeField] private Vector3 _initalPosition;
+    [SerializeField] private Vector3 _initialPosition;
     [SerializeField] private Vector3 _targetPosition;
-
+    
     [Tooltip("Total Time that the object will reach the target, in seconds")]
     [SerializeField] private float _timeToReachTarget;
+
+    [Header("Use actual position inspector as Inital Position?")]
+    [SerializeField] private bool _useActualPositionInspector;
+
+    [Header("Disable Object when reach target?")]
+    [SerializeField] private bool _desactiveObject;
 
     private float _timeElapsed;
     private float _averageSpeed;
@@ -35,11 +41,21 @@ public class MoveToTargetPoint : MonoBehaviour
     {
         if (_worldPosition)
         {
-            transform.position = _initalPosition;
+            if (_useActualPositionInspector)
+            {
+                _initialPosition = transform.position;
+            }
+
+            transform.position = _initialPosition;
         }
         else
         {
-            transform.localPosition = _initalPosition;
+            if (_useActualPositionInspector)
+            {
+                _initialPosition = transform.localPosition;
+            }
+
+            transform.localPosition = _initialPosition;
         }
 
         _timeElapsed = 0;
@@ -48,7 +64,7 @@ public class MoveToTargetPoint : MonoBehaviour
 
     private float CalculateAverageSpeed()
     {
-        return (Vector3.Distance(_targetPosition, _initalPosition)) / _timeToReachTarget;
+        return (Vector3.Distance(_targetPosition, _initialPosition)) / _timeToReachTarget;
     }
 
     private IEnumerator MoveToTargetPosition()
@@ -78,6 +94,7 @@ public class MoveToTargetPoint : MonoBehaviour
             yield return null;
         }
 
+        if (_desactiveObject) this.gameObject.SetActive(true);
         yield return null;
     }
 

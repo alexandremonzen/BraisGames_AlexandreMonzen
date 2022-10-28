@@ -190,7 +190,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""e09c9ce8-d072-4d16-83d5-b41d3b9a2cc0"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": ""StickDeadzone(min=0.5)"",
+                    ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
@@ -325,6 +325,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GeneralActionMap"",
+            ""id"": ""6fff00f0-d89b-4c6a-8f06-16007a8e32d0"",
+            ""actions"": [
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""93b49e9b-34d3-4936-931e-60be998a2ac0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8dbad397-5fec-428a-ae05-46698bd61fd4"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -344,6 +372,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerGeneralActionMap_LookRotation = m_PlayerGeneralActionMap.FindAction("LookRotation", throwIfNotFound: true);
         m_PlayerGeneralActionMap_LookZoom = m_PlayerGeneralActionMap.FindAction("LookZoom", throwIfNotFound: true);
         m_PlayerGeneralActionMap_LookAtMousePosition = m_PlayerGeneralActionMap.FindAction("LookAtMousePosition", throwIfNotFound: true);
+        // GeneralActionMap
+        m_GeneralActionMap = asset.FindActionMap("GeneralActionMap", throwIfNotFound: true);
+        m_GeneralActionMap_Pause = m_GeneralActionMap.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -546,6 +577,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerGeneralActionMapActions @PlayerGeneralActionMap => new PlayerGeneralActionMapActions(this);
+
+    // GeneralActionMap
+    private readonly InputActionMap m_GeneralActionMap;
+    private IGeneralActionMapActions m_GeneralActionMapActionsCallbackInterface;
+    private readonly InputAction m_GeneralActionMap_Pause;
+    public struct GeneralActionMapActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GeneralActionMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_GeneralActionMap_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_GeneralActionMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GeneralActionMapActions set) { return set.Get(); }
+        public void SetCallbacks(IGeneralActionMapActions instance)
+        {
+            if (m_Wrapper.m_GeneralActionMapActionsCallbackInterface != null)
+            {
+                @Pause.started -= m_Wrapper.m_GeneralActionMapActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GeneralActionMapActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GeneralActionMapActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_GeneralActionMapActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public GeneralActionMapActions @GeneralActionMap => new GeneralActionMapActions(this);
     public interface IPlayerMovementActionMapActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -563,5 +627,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnLookRotation(InputAction.CallbackContext context);
         void OnLookZoom(InputAction.CallbackContext context);
         void OnLookAtMousePosition(InputAction.CallbackContext context);
+    }
+    public interface IGeneralActionMapActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

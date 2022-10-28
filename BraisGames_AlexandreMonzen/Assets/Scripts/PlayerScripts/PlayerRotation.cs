@@ -14,6 +14,7 @@ namespace PlayerCharacter
     {
         [Header("Based on Camera")]
         [SerializeField] private Cinemachine.CinemachineInputProvider _cinemachineInput;
+
         [Tooltip("0.01 too much smooth <> 1 no smooth at all")]
         [SerializeField][Range(0.01f, 1)] private float _smoothRotationValue = 0.1f;
         private Vector2 _mousePosition;
@@ -31,21 +32,28 @@ namespace PlayerCharacter
         private CameraRelativeVectors _cameraRelativeVectors;
         private PlayerInputActions _playerInputActions;
         private InputAction _mousePositionInputAction;
+        private MouseStatusController _mouseStatusController;
 
         private void Awake()
         {
             _playerMovement = GetComponent<PlayerMovement>();
             _cameraRelativeVectors = GetComponent<CameraRelativeVectors>();
             _playerInputActions = new PlayerInputActions();
+            _mouseStatusController = MouseStatusController.Instance;
 
             _rotationType = 0;
             _canRotate = true;
 
             _groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+            if(_cinemachineInput) _cinemachineInput.enabled = false;
         }
 
         private void OnEnable()
         {
+            _playerInputActions.PlayerGeneralActionMap.LookRotation.Enable();
+            _cinemachineInput.enabled = true;
+
             _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.performed += SwitchRotationType;
             _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.Enable();
 
@@ -56,6 +64,9 @@ namespace PlayerCharacter
 
         private void OnDisable()
         {
+            _playerInputActions.PlayerGeneralActionMap.LookRotation.Disable();
+            if(_cinemachineInput) _cinemachineInput.enabled = false;
+
             _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.Disable();
             _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.performed -= SwitchRotationType;
 
@@ -111,12 +122,39 @@ namespace PlayerCharacter
             {
                 _playerInputActions.PlayerGeneralActionMap.LookRotation.Enable();
                 _cinemachineInput.enabled = true;
+                _mouseStatusController.SetMouseVisibilityAndLockState(false, CursorLockMode.Locked);
             }
             else
             {
                 _playerInputActions.PlayerGeneralActionMap.LookRotation.Disable();
                 _cinemachineInput.enabled = false;
+                _mouseStatusController.SetMouseVisibilityAndLockState(true, CursorLockMode.None);
             }
+        }
+
+
+        public void RemoveAllRotationType()
+        {
+            _canRotate = false;
+            _cinemachineInput.enabled = false;
+
+            _playerInputActions.PlayerGeneralActionMap.LookRotation.Disable();
+            _mousePositionInputAction.Disable();
+
+            _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.Disable();
+            _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.performed -= SwitchRotationType;
+        }
+
+        public void ReturnAllRotationType()
+        {
+            _canRotate = true;
+            _cinemachineInput.enabled = true;
+
+            _playerInputActions.PlayerGeneralActionMap.LookRotation.Enable();
+            _mousePositionInputAction.Enable();
+
+            _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.performed += SwitchRotationType;
+            _playerInputActions.PlayerGeneralActionMap.SwitchRotationType.Enable();
         }
     }
 }

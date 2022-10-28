@@ -168,7 +168,7 @@
                     "type": "PassThrough",
                     "id": "e09c9ce8-d072-4d16-83d5-b41d3b9a2cc0",
                     "expectedControlType": "Vector2",
-                    "processors": "StickDeadzone(min=0.5)",
+                    "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
@@ -299,6 +299,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchRotationType",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "GeneralActionMap",
+            "id": "6fff00f0-d89b-4c6a-8f06-16007a8e32d0",
+            "actions": [
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "93b49e9b-34d3-4936-931e-60be998a2ac0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8dbad397-5fec-428a-ae05-46698bd61fd4",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

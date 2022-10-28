@@ -15,4 +15,9 @@ public abstract class InteractiveObject : MonoBehaviour
         Interacted = false;
         CanBeInteracted = true;
     }
+
+    public void SetInteracted(bool state)
+    {
+        Interacted = state;
+    }
 }
