@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b05b73f3fb79944a9f3969a9ac9495, type: 3}
   m_Name: House01_ConstructionRecord
   m_EditorClassIdentifier: 
-  _woodAmount: 1
-  _stoneAmount: 0
+  _woodAmount: 10
+  _stoneAmount: 8
   _leafAmount: 0
   _namePreview: House 01 - Wood with Rocks
-  _imagePreview: {fileID: -238892420, guid: dc646bae9efcede40b328fd7e938b014, type: 3}
+  _imagePreview: {fileID: -1713589976, guid: dc646bae9efcede40b328fd7e938b014, type: 3}
   _prefabConstruction: {fileID: 1640908652775104, guid: cd87e5026d1695148aabe96121c526ef,
     type: 3}

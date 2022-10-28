@@ -156,7 +156,7 @@ namespace PlayerCharacter
             _currentMovementVector = Vector3.SmoothDamp(_currentMovementVector, _movementVector, ref _refVelocityVector, _moveSmoothValue);
             _smoothedMovementVector = new Vector3(_currentMovementVector.x * _actualMoveSpeed, 0, _currentMovementVector.y * _actualMoveSpeed);
 
-            _finalMovementVector = (_cameraRelativeVectors.CamRigth * _smoothedMovementVector.x) + _gravityVector + 
+            _finalMovementVector = (_cameraRelativeVectors.CamRigth * _smoothedMovementVector.x) + _gravityVector +
                                    (_cameraRelativeVectors.CamForward * _smoothedMovementVector.z);
         }
 
@@ -184,16 +184,14 @@ namespace PlayerCharacter
             }
         }
 
-        public void ToggleAllMovementType(bool on)
+        public void ReturnAllMovementType()
         {
-            if (on)
-            {
-                _playerInputActions.PlayerMovementActionMap.Enable();
-            }
-            else
-            {
-                _playerInputActions.PlayerMovementActionMap.Disable();
-            }
+            _playerInputActions.PlayerMovementActionMap.Enable();
+        }
+
+        public void RemoveAllMovementType()
+        {
+            _playerInputActions.PlayerMovementActionMap.Disable();
         }
 
         #region Actions Methods

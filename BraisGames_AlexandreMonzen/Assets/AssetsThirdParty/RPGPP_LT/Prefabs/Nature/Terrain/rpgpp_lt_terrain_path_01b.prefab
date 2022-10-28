@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4947743726954784}
   - component: {fileID: 33256546363420046}
   - component: {fileID: 23494612884942486}
-  m_Layer: 0
+  - component: {fileID: 35113203960488846}
+  m_Layer: 16
   m_Name: rpgpp_lt_terrain_path_01b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &35113203960488846
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740273473050372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.891563, y: 0.3676776, z: 4.129186}
+  m_Center: {x: -0.116577625, y: -0.17188291, z: -0.024820566}
